@@ -1,23 +1,21 @@
-const siteUrl = 'https://www.fireeye.com/cyber-map/threat-map.html';
 const axios = require('axios');
-const cheerio = require('cheerio');
 
-const fetchData = async () => {
-  const result = await axios.get(siteUrl);
-  return cheerio.load(result.data);
-};
+const dataUrl = 'https://www.fireeye.com/content/dam/legacy/cyber-map/weekly_sanitized.min.js';
 
-async function getHacks() {
-  const result = await fetchData();
-  // console.log(result.html());
-  const filtered = result('div[id=log]').html();
-  console.log(filtered);
+async function getData() {
+  const response = await axios.get(dataUrl);
+  return response.data;
 }
-// getHacks();
 
-setInterval(async () => {
-  const result = await fetchData();
-  // console.log(result.html());
-  const filtered = result('div[id=log]').html();
-  console.log(filtered);
-}, 100);
+async function startUp() {
+  const data = await getData();
+  const { attacks } = data;
+  let randTime = Math.random() * 1000;
+  setInterval(() => {
+    randTime = Math.random() * 10000;
+    const randItem = Math.floor(Math.random() * attacks.length);
+    console.log(randTime, randItem);
+    console.log(attacks[randItem]);
+  }, randTime);
+}
+startUp();
