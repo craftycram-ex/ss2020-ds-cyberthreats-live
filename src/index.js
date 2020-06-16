@@ -11,13 +11,14 @@ async function startUp() {
   const data = await getData();
   const { attacks } = data;
   let randTime = Math.random() * 1000;
-  setInterval(() => {
+  while (true) {
     randTime = Math.random() * 10000;
     const randItem = Math.floor(Math.random() * attacks.length);
     const attack = attacks[randItem];
     console.log('T', randTime, 'A', randItem);
     console.log(attack);
     console.log(`#############################\nAttack from ${attack.OriginCode} to ${attack.Destination}\n#############################`);
-  }, randTime);
+    await new Promise((r) => setTimeout(r, randTime));
+  }
 }
 startUp();
