@@ -7,20 +7,18 @@ async function getData() {
   return response.data;
 }
 
-async function startUp() {
+async function printAttack() {
   const maxDelayInSec = 5;
   const data = await getData();
   const { attacks } = data;
-  while (true) {
-    const randTime = Math.random() * 1000 * maxDelayInSec;
-    const randItem = Math.floor(Math.random() * attacks.length);
-    const attack = attacks[randItem];
-    console.log('\n#################################################');
-    console.log('T', randTime, 'A', randItem);
-    console.log(attack);
-    console.log(`Attack from ${attack.OriginCode} to ${attack.Destination}`);
-    console.log('#################################################');
-    await new Promise((r) => setTimeout(r, randTime));
-  }
+  const randTime = Math.random() * 1000 * maxDelayInSec;
+  const randItem = Math.floor(Math.random() * attacks.length);
+  const attack = attacks[randItem];
+  console.log('\n#################################################');
+  console.log('T', randTime, 'A', randItem);
+  console.log(attack);
+  console.log(`Attack from ${attack.OriginCode} to ${attack.Destination}`);
+  console.log('#################################################');
+  setTimeout(printAttack, randTime);
 }
-startUp();
+printAttack();
