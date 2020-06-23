@@ -2,9 +2,8 @@ const axios = require('axios');
 const WebSocket = require('ws');
 
 const wss = new WebSocket.Server({
-  port: 3000
+  port: 3000,
 });
-let websocketConnection;
 
 const dataUrl = 'https://www.fireeye.com/content/dam/legacy/cyber-map/weekly_sanitized.min.js';
 
