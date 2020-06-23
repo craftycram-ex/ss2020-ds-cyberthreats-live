@@ -16,6 +16,7 @@
         "eslint-plugin-import": "^2.21.2"
     },
     "dependencies": {
-        "axios": "^0.19.2"
+        "axios": "^0.19.2",
+        "ws": "^7.3.0"
     }
 }
