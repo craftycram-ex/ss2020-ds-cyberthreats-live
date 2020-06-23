@@ -1,6 +1,5 @@
 const axios = require('axios');
 const WebSocket = require('ws');
-const cors = require('cors');
 
 const wss = new WebSocket.Server({
   port: 3000
