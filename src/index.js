@@ -11,7 +11,7 @@ wss.on('connection', (ws) => {
   ws.on('message', (message) => {
     console.log('received: %s', message);
   });
-  //websocketConnection = ws;
+
   async function getData() {
     const response = await axios.get(dataUrl);
     return response.data;
