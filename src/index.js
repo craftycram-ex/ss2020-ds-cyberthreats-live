@@ -41,6 +41,6 @@ io.on('connection', (client) => {
 });
 
 // start our server
-const server = http.listen(3000, () => {
+const server = http.listen(3001, () => {
   console.log(`Server started on port ${server.address().port} :)`);
 });
