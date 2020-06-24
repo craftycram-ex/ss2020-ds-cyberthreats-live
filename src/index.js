@@ -1,14 +1,18 @@
 const axios = require('axios');
-const WebSocket = require('ws');
+const express = require('express');
+const cors = require('cors');
 
-const wss = new WebSocket.Server({
-  port: 3000,
-});
+const app = express();
+app.use(cors);
+
+//initialize a simple http server
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 const dataUrl = 'https://www.fireeye.com/content/dam/legacy/cyber-map/weekly_sanitized.min.js';
 
-wss.on('connection', (ws) => {
-  ws.on('message', (message) => {
+io.on('connection', (client) => {
+  client.on('message', (message) => {
     console.log('received: %s', message);
   });
 
@@ -30,8 +34,13 @@ wss.on('connection', (ws) => {
     console.log(attack);
     console.log(`Attack from ${attack.OriginCode} to ${attack.Destination}`);
     console.log('#################################################');
-    ws.send(JSON.stringify(attack));
+    client.emit('attack', attack);
     setTimeout(printAttack, randTime);
   }
   printAttack();
+});
+
+// start our server
+const server = http.listen(3000, () => {
+  console.log(`Server started on port ${server.address().port} :)`);
 });
