@@ -7,7 +7,12 @@ const https = require('https');
 const app = express();
 app.use(cors);
 
-const io = require('socket.io')(https);
+// initialize a simple http server
+const server = https.createServer({
+  key: fs.readFileSync('./privkey.pem'),
+  cert: fs.readFileSync('./cert.pem'),
+}, app);
+const io = require('socket.io')(server);
 
 const dataUrl = 'https://www.fireeye.com/content/dam/legacy/cyber-map/weekly_sanitized.min.js';
 
@@ -41,9 +46,6 @@ io.on('connection', (client) => {
 });
 
 // start our server
-https.createServer({
-  key: fs.readFileSync('./privkey.pem'),
-  cert: fs.readFileSync('./cert.pem'),
-}, app).listen(3001, () => {
-  console.log('Server online auf port 3001');
+server.listen(3001, () => {
+  console.log('Server started on port 3000 :)');
 });
