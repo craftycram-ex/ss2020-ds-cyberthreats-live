@@ -1,17 +1,13 @@
 const axios = require('axios');
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs');
-const https = require('https');
+const http = require('http');
 
 const app = express();
 app.use(cors);
 
 // initialize a simple http server
-const server = https.createServer({
-  key: fs.readFileSync(`${process.env.CERTS_DIR}privkey.pem`),
-  cert: fs.readFileSync(`${process.env.CERTS_DIR}cert.pem`),
-}, app);
+const server = http.createServer(app);
 const io = require('socket.io')(server);
 
 const dataUrl = 'https://www.fireeye.com/content/dam/legacy/cyber-map/weekly_sanitized.min.js';
